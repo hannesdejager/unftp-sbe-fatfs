@@ -54,10 +54,6 @@
 
 use async_trait::async_trait;
 use fatfs::{DateTime, DirEntry, FileSystem, FsOptions};
-use libunftp::{
-    auth::UserDetail,
-    storage::{Error, ErrorKind, Fileinfo, Metadata, Result, StorageBackend},
-};
 use std::{
     fmt::Debug,
     fs::File,
@@ -65,6 +61,10 @@ use std::{
     path::{Path, PathBuf},
     time::Duration,
     time::SystemTime,
+};
+use unftp_core::{
+    auth::UserDetail,
+    storage::{Error, ErrorKind, Fileinfo, Metadata, Result, StorageBackend},
 };
 
 /// A virtual file system that provides read-only access to FAT filesystem images.
