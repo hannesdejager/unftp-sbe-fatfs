@@ -1,4 +1,4 @@
-//! A storage backend for [libunftp](https://github.com/bolcom/libunftp) that provides read-only access to FAT filesystem images.
+//! A storage backend for [libunftp](https://github.com/Cloudinvoke/libunftp) that provides read-only access to FAT filesystem images.
 //!
 //! This crate implements a storage backend for the libunftp FTP server library, allowing you to serve files from FAT filesystem images (`.img` files) over FTP.
 //!
@@ -12,7 +12,7 @@
 //! async fn main() {
 //!     let addr = "127.0.0.1:2121";
 //!
-//!     let server = ServerBuilder::new(Box::new(move || Vfs::new("examples/my.img")))
+//!     let server = ServerBuilder::new(Box::new(move || Vfs::new("/path/to/image.img")))
 //!         .greeting("Welcome to my FAT image over FTP")
 //!         .passive_ports(50000..=65535)
 //!         .build()
@@ -69,7 +69,7 @@ use unftp_core::{
 
 /// A virtual file system that provides read-only access to FAT filesystem images.
 ///
-/// This struct implements the `StorageBackend` trait from libunftp, allowing it to be used
+/// This struct implements the `StorageBackend` trait from unftp-core, allowing it to be used
 /// as a storage backend for an FTP server. It provides read-only access to the contents
 /// of a FAT filesystem image file.
 ///

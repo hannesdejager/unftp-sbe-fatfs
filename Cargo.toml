@@ -1,22 +1,22 @@
 [package]
 name = "unftp-sbe-fatfs"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2024"
 description = "A storage backend for libunftp that provides read-only access to FAT filesystem images"
-authors = ["Hannes de Jager <hannes.de.jager@gmail.com>"]
+authors = ["Hannes de Jager <hannes@cloudinvoke.com>"]
 license = "Apache-2.0"
 repository = "https://github.com/hannesdejager/unftp-sbe-fatfs"
+homepage = "https://github.com/hannesdejager/unftp-sbe-fatfs"
 documentation = "https://docs.rs/unftp-sbe-fatfs"
 keywords = ["ftp", "ftps", "libunftp", "fat", "unftp"]
 categories = ["filesystem", "network-programming"]
 readme = "README.md"
 
 [dependencies]
-async-trait = "0.1.88"
+async-trait = "0.1.92"
 fatfs = "0.3.6"
-unftp-core = "0.1.0"
-tokio = "1.49.0"
+unftp-core = "0.1.1"
+tokio = "1.54.1"
 
 [dev-dependencies]
-libunftp = "0.23.0"
-
+libunftp = "0.24.0"

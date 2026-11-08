@@ -1,11 +1,11 @@
 # unftp-sbe-fatfs
 
-A storage backend for [libunftp](https://github.com/bolcom/libunftp) that provides read-only access to FAT filesystem images.
+A storage backend for [libunftp](https://github.com/Cloudinvoke/libunftp) that provides read-only access to FAT filesystem images.
 
-While feeling nostalgic I implemented this storage backend for the libunftp FTP server library, allowing you to serve 
-files from FAT filesystem images (`.img` files) over FTP. The implementation is read-only, meaning clients can list 
+While feeling nostalgic I implemented this storage backend for the libunftp FTP server library, allowing you to serve
+files from FAT filesystem images (`.img` files) over FTP. The implementation is read-only, meaning clients can list
 directories and download files, but cannot modify the filesystem. Supporting write operations wouldn't be out of the
-question but perhaps less useful. For now this is it. 
+question but perhaps less useful. For now this is it.
 
 ## Features
 
@@ -13,7 +13,6 @@ question but perhaps less useful. For now this is it.
 - Directory listing
 - File metadata (size, modification time)
 - Position-based file reading
-- Async I/O using tokio
 
 ## Usage
 
@@ -21,9 +20,9 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-unftp-sbe-fatfs = "0.1.0"
-libunftp = "0.21.0"
-tokio = { version = "1.44.2", features = ["full"] }
+unftp-sbe-fatfs = "0.2.1"
+libunftp = "0.24.0"
+tokio = { version = "1", features = ["full"] }
 ```
 
 ### Basic Example
@@ -38,7 +37,7 @@ use unftp_sbe_fatfs::Vfs;
 async fn main() {
     let addr = "127.0.0.1:2121";
 
-    let server = ServerBuilder::new(Box::new(move || Vfs::new("examples/my.img")))
+    let server = ServerBuilder::new(Box::new(move || Vfs::new("/path/to/image.img")))
         .greeting("Welcome to my FAT image over FTP")
         .passive_ports(50000..=65535)
         .build()
@@ -48,6 +47,9 @@ async fn main() {
     server.listen(addr).await.unwrap();
 }
 ```
+
+Replace `/path/to/image.img` with the path to a FAT image. For a runnable repository example,
+see [`examples/basic.rs`](https://github.com/hannesdejager/unftp-sbe-fatfs/blob/master/examples/basic.rs).
 
 ### Connecting with an FTP client
 
@@ -78,6 +80,7 @@ exit
 - Read-only access (no file uploads, deletions, or modifications)
 - Currently only supports FAT filesystem images
 - No support for symbolic links
+- Image reads use synchronous file I/O inside the backend's async methods.
 
 ## License
 
